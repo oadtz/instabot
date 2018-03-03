@@ -1,14 +1,20 @@
+from os.path import join, dirname
+from dotenv import load_dotenv
 from src import InstaBot
+import os
 
-bot = InstaBot('behappynerd', 'pip2finn',\
-               like_per_day=1000,\
-               media_max_like=50,\
-               media_min_like=5,\
-               tag_list=['กันดั้ม', 'กันพลา', 'โมเดล', 'ของเล่น', 'ของสะสม', 'gundam', 'bandai', 'gunpla', 'gundamthailand', 'starwars', 'japan', 'gundamfront', 'gundambase', 'hbuc', 'hgbf', 'gunplathailand', 'toy', 'hobbby', 'gundammodelkits', 'gunplamodelkits', 'mobilesuit', 'mobilesuitgundam'],\
-               max_like_for_one_tag=100,\
-               follow_per_day=500,\
-               unfollow_per_day=100,\
-               comments_per_day=100,\
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+
+bot = InstaBot(os.getenv("IG_USER"),\
+               os.getenv("IG_PASSWORD"),\
+               like_per_day=int(os.getenv("LIKE_PER_DAY")),\
+               media_max_like=int(os.getenv("MEDIA_MAX_LIKE")),\
+               media_min_like=int(os.getenv("MEDIA_MIN_LIKE")),\
+               tag_list=os.getenv("TAG_LIST").split(","),\
+               max_like_for_one_tag=int(os.getenv("MAX_LIKE_FOR_ONE_TAG")),\
+               follow_per_day=int(os.getenv("FOLLOW_PER_DAY")),\
+               unfollow_per_day=int(os.getenv("UNFOLLOW_PER_DAY")),\
+               comments_per_day=int(os.getenv("COMMENTS_PER_DAY")),\
                comment_list=[['coool', 'great shot', 'superb', 'cool', 'fantastic'], ['❤❤❤❤', '!!!!!', '...']],\
-               log_mod=1)
+               log_mod=int(os.getenv("LOG_MODE")))
 bot.auto_mod()
